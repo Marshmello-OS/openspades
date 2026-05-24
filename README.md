@@ -250,4 +250,5 @@ In addition, vcpkg (sort of package manager only used for Windows and macOS buil
 For troubleshooting and common problems see [TROUBLESHOOTING](TROUBLESHOOTING.md).
 
 ## Licensing
-Please see the file named LICENSE.
+Please see the file named LICENSE. 
+
