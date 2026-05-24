@@ -22,6 +22,13 @@ jobs:
             !.git
           key: ${{ runner.os }}-${{ hashFiles('vcpkg_x86-windows.txt', '.gitmodules') }}
 
+      # ✅ NEW: cache downloads to avoid MSYS2 / brotli failures
+      - name: Cache vcpkg downloads
+        uses: actions/cache@v4
+        with:
+          path: vcpkg/downloads
+          key: vcpkg-downloads-${{ runner.os }}
+
       - name: Bootstrap vcpkg
         run: vcpkg/bootstrap-vcpkg.bat
 
@@ -67,7 +74,7 @@ jobs:
           build-type: RelWithDebInfo
           configure-options: -D CMAKE_BUILD_TYPE=RelWithDebInfo -D CMAKE_TOOLCHAIN_FILE=${{ runner.workspace }}/openspades/vcpkg/scripts/buildsystems/vcpkg.cmake -D VCPKG_TARGET_TRIPLET=x64-osx -D CMAKE_OSX_ARCHITECTURES=x86_64
           parallel: 8
-  
+
   build-nix:
     name: Build (Linux + Nix)
     runs-on: ubuntu-22.04
