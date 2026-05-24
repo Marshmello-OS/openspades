@@ -1,0 +1,23 @@
+name: Build OpenSpades
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Setup CMake
+      uses: jwlawson/actions-setup-cmake@v2
+
+    - name: Configure
+      run: cmake -B build -A x64
+
+    - name: Build
+      run: cmake --build build --config Release
